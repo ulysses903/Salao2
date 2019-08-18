@@ -11,6 +11,7 @@ namespace Salao.Models
         public string Name { get; set; }
         public DateTime BirthDate { get; set; }
         public int PhoneNumber { get; set; }
+        public ICollection<Procedimentos> ListaDeProcedimentos { get; set; } = new List<Procedimentos>();
 
         public Funcionario()
         {
@@ -23,5 +24,16 @@ namespace Salao.Models
             BirthDate = birthDate;
             PhoneNumber = phoneNumber;
         }
+
+        public void AddProcedimento(Procedimentos procedimento)
+        {
+            ListaDeProcedimentos.Add(procedimento);
+        }
+
+        public void RemoveProcedimento(Procedimentos procedimento)
+        {
+            ListaDeProcedimentos.Remove(procedimento);
+        }
+
     }
 }
