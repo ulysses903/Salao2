@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Salao.Models;
 
 namespace Salao.Models
 {
@@ -14,5 +15,7 @@ namespace Salao.Models
         }
 
         public DbSet<Salao.Models.Procedimentos> Procedimentos { get; set; }
+
+        public DbSet<Salao.Models.Cliente> Cliente { get; set; }
     }
 }
