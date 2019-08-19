@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -28,7 +29,7 @@ namespace Salao.Models
         {
         }
 
-        public Funcionario(int id, string name, DateTime birthDate, int phoneNumber)
+        public Funcionario(int id, string name, DateTime birthDate, string phoneNumber)
         {
             Id = id;
             Name = name;

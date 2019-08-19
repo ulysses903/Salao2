@@ -17,5 +17,7 @@ namespace Salao.Models
         public DbSet<Salao.Models.Procedimentos> Procedimentos { get; set; }
 
         public DbSet<Salao.Models.Cliente> Cliente { get; set; }
+
+        public DbSet<Salao.Models.Funcionario> Funcionario { get; set; }
     }
 }
