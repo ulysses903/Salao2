@@ -9,6 +9,7 @@ namespace Salao.Models
     public class Cliente
     {
         public int Id { get; set; }
+
         [Required(ErrorMessage = "{0} required")]
         [Display(Name = "Nome")]
         [StringLength(60, MinimumLength = 3, ErrorMessage = "{0} size should be between {2} and {1}")]
@@ -20,6 +21,8 @@ namespace Salao.Models
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime BirthDate { get; set; }
 
+        [Required(ErrorMessage = "{0} required")]
+        [Display(Name = "Número de Telefone")]
         public string PhoneNumber { get; set; }
         
 
