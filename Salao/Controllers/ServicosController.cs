@@ -70,6 +70,14 @@ namespace Salao.Controllers
             return View(obj);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(int id)
+        {
+            _servicoService.Remove(id);
+            return RedirectToAction(nameof(Index));
+        }
+
         public IActionResult Details(int? id)
         {
             if(id == null)
