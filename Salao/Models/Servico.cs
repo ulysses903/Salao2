@@ -11,9 +11,7 @@ namespace Salao.Models
         public int Id { get; set; }
 
         [Required(ErrorMessage = "{0} required")]
-        [Display(Name = "Data de nascimento")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+        [Display(Name = "Dia e Horario")]
         public DateTime Date { get; set; }
 
         [Required(ErrorMessage = "{0} required")]
