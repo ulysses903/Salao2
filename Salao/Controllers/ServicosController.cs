@@ -35,7 +35,7 @@ namespace Salao.Controllers
             var funcionarios = _funcionariosService.FindAll();
             var clientes = _clienteService.FindAll();
             var procedimentos = _procedimentosService.FindAll();
-            var viewModel = new FuncionariosFormViewModel { Funcionarios = funcionarios, Clientes = clientes, Procedimentos = procedimentos };
+            var viewModel = new ServicosFormViewModel { Funcionarios = funcionarios, Clientes = clientes, Procedimentos = procedimentos };
             return View(viewModel);
         }
 

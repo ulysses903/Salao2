@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Salao.Models.ViewModels
 {
-    public class FuncionariosFormViewModel
+    public class ServicosFormViewModel
     {
         public Servico Servico { get; set; }
         public ICollection<Funcionario> Funcionarios { get; set; }
