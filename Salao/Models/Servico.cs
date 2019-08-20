@@ -18,7 +18,7 @@ namespace Salao.Models
 
         [Required(ErrorMessage = "{0} required")]
         [Range(100.0, 50000.0, ErrorMessage = "{0} must be from {1} to {2}")]
-        [Display(Name = "Prçeo")]
+        [Display(Name = "Preço")]
         [DisplayFormat(DataFormatString = "{0:F2}")]
         public double Price { get; set; }
 

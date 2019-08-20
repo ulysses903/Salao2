@@ -19,5 +19,12 @@ namespace Salao.Services
         {
             return _context.Servico.ToList();
         }
+
+        public void Insert (Servico obj)
+        {
+            _context.Add(obj);
+            _context.SaveChanges();
+        }
+
     }
 }
