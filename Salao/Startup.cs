@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Salao.Models;
+using Salao.Services;
 
 namespace Salao
 {
@@ -39,6 +40,9 @@ namespace Salao
             services.AddDbContext<SalaoContext>(options =>
                     options.UseMySql(Configuration.GetConnectionString("SalaoContext"), builder =>
                         builder.MigrationsAssembly("Salao")));
+
+            services.AddScoped<ServicoService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

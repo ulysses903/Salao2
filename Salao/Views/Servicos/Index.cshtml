@@ -1,7 +1,38 @@
-﻿
+﻿@model IEnumerable<Servico>
+
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Serviços";
 }
 
-<h1>Serviços</h1>
+<h1>@ViewData["Title"]</h1>
 
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                <a asp-action="Edit" aps-route-id="@item.Id">Editar | </a>
+                <a asp-action="Edit" aps-route-id="@item.Id">Detalhes | </a>
+                <a asp-action="Edit" aps-route-id="@item.Id">Deletar</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
