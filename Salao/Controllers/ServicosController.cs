@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Salao.Models;
 using Salao.Services;
 using Salao.Models.ViewModels;
+using Salao.Services.Exceptions;
+
 namespace Salao.Controllers
 {
     public class ServicosController : Controller
@@ -48,9 +50,49 @@ namespace Salao.Controllers
             
         }
 
-        public IActionResult Edit()
+        public IActionResult Edit(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var obj = _servicoService.FindById(id.Value);
+
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
+            List<Funcionario> funcionarios = _funcionariosService.FindAll();
+            List<Cliente> clientes = _clienteService.FindAll();
+            List<Procedimentos> procedimentos = _procedimentosService.FindAll();
+            ServicosFormViewModel viewModel = new ServicosFormViewModel { Servico = obj, Funcionarios = funcionarios, Clientes = clientes, Procedimentos = procedimentos };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, Servico servico)
+        {
+            if(id != servico.Id)
+            {
+                return BadRequest();
+            }
+            try
+            {
+                _servicoService.Update(servico);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (NotFoundException e)
+            {
+                return NotFound();
+            }
+            catch (DbConcurrencyException e )
+            {
+                return BadRequest();
+            }
         }
 
         public IActionResult Delete(int? id)

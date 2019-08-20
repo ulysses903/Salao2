@@ -1,7 +1,40 @@
-﻿
+﻿@model Salao.Models.ViewModels.ServicosFormViewModel
+
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar";
 }
 
-<h1>Editar</h1>
+<h1>@ViewData["Title"] </h1>
 
+<h4>Serviço</h4>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <input type="hidden" asp-for="Servico.Id" />
+            <div class="form-group">
+                <label asp-for="Servico.Date" class="control-label"></label>
+                <input asp-for="Servico.Date" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Servico.Price" class="control-label"></label>
+                <input asp-for="Servico.Price" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Servico.FuncionarioId" class="control-label"></label>
+                <select asp-for="Servico.FuncionarioId" asp-items="@(new SelectList(Model.Funcionarios,"Id","Name"))" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Servico.ClienteId" class="control-label"></label>
+                <select asp-for="Servico.ClienteId" asp-items="@(new SelectList(Model.Clientes,"Id","Name"))" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Servico.ProcedimentosId" class="control-label"></label>
+                <select asp-for="Servico.ProcedimentosId" asp-items="@(new SelectList(Model.Procedimentos,"Id","Name"))" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-dark" />
+            </div>
+        </form>
+    </div>
+</div>

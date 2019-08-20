@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Salao.Services.Exceptions;
 
 namespace Salao.Services
 {
@@ -18,7 +19,7 @@ namespace Salao.Services
 
         public List<Servico> FindAll()
         {
-            return _context.Servico.ToList();
+            return _context.Servico.Include(obj => obj.Funcionario).Include(obj => obj.Cliente).Include(obj => obj.Procedimentos).ToList();
         }
 
         public void Insert (Servico obj)
@@ -37,6 +38,23 @@ namespace Salao.Services
             var obj = _context.Servico.Find(id);
             _context.Remove(obj);
             _context.SaveChanges();
+        }
+
+        public void Update(Servico obj)
+        {
+            if (!_context.Servico.Any(x => x.Id == obj.Id))
+            {
+                throw new NotFoundException("Id não encontrado.");
+            }
+            try
+            {
+                _context.Update(obj);
+                _context.SaveChanges();
+            }
+            catch(DbUpdateConcurrencyException e)
+            {
+                throw new DbConcurrencyException(e.Message);
+            }
         }
 
     }
