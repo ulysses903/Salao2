@@ -28,6 +28,10 @@
                 <select asp-for="Servico.ClienteId" asp-items="@(new SelectList(Model.Clientes,"Id","Name"))" class="form-control"></select>
             </div>
             <div class="form-group">
+                <label asp-for="Servico.ProcedimentosId" class="control-label"></label>
+                <select asp-for="Servico.ProcedimentosId" asp-items="@(new SelectList(Model.Procedimentos,"Id","Name"))" class="form-control"></select>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-dark" />
             </div>
         </form>

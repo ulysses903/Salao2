@@ -14,12 +14,14 @@ namespace Salao.Controllers
         private readonly ServicoService _servicoService;
         private readonly FuncionariosService _funcionariosService;
         private readonly ClienteService _clienteService;
+        private readonly ProcedimentosService _procedimentosService;
 
-        public ServicosController(ServicoService servicoService, FuncionariosService funcionariosService, ClienteService clienteService)
+        public ServicosController(ServicoService servicoService, FuncionariosService funcionariosService, ClienteService clienteService, ProcedimentosService procedimentosService)
         {
             _servicoService = servicoService;
             _funcionariosService = funcionariosService;
             _clienteService = clienteService;
+            _procedimentosService = procedimentosService;
         }
 
         public IActionResult Index()
@@ -32,7 +34,8 @@ namespace Salao.Controllers
         {
             var funcionarios = _funcionariosService.FindAll();
             var clientes = _clienteService.FindAll();
-            var viewModel = new FuncionariosFormViewModel { Funcionarios = funcionarios, Clientes = clientes };
+            var procedimentos = _procedimentosService.FindAll();
+            var viewModel = new FuncionariosFormViewModel { Funcionarios = funcionarios, Clientes = clientes, Procedimentos = procedimentos };
             return View(viewModel);
         }
 
