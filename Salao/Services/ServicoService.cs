@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Salao.Services
 {
@@ -28,7 +29,7 @@ namespace Salao.Services
 
         public Servico FindById(int id)
         {
-            return _context.Servico.FirstOrDefault(obj => obj.Id == id);
+            return _context.Servico.Include(obj => obj.Funcionario).Include(obj => obj.Cliente).Include(obj => obj.Procedimentos).FirstOrDefault(obj => obj.Id == id);
         }
 
         public void Remove(int id)
