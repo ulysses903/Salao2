@@ -43,6 +43,7 @@ namespace Salao
 
             services.AddScoped<ServicoService>();
             services.AddScoped<FuncionariosService>();
+            services.AddScoped<ClienteService>();
 
         }
 
