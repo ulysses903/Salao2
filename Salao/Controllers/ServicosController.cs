@@ -48,5 +48,43 @@ namespace Salao.Controllers
             
         }
 
+        public IActionResult Edit()
+        {
+            return View();
+        }
+
+        public IActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var obj = _servicoService.FindById(id.Value);
+
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
+            return View(obj);
+        }
+
+        public IActionResult Details(int? id)
+        {
+            if(id == null)
+            {
+                return NotFound();
+            }
+
+            var obj = _servicoService.FindById(id.Value);
+
+            if(obj == null)
+            {
+                return NotFound();
+            }
+
+            return View(obj);
+        }
     }
 }

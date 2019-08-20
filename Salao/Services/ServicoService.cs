@@ -26,5 +26,17 @@ namespace Salao.Services
             _context.SaveChanges();
         }
 
+        public Servico FindById(int id)
+        {
+            return _context.Servico.FirstOrDefault(obj => obj.Id == id);
+        }
+
+        public void Remove(int id)
+        {
+            var obj = _context.Servico.Find(id);
+            _context.Remove(obj);
+            _context.SaveChanges();
+        }
+
     }
 }
