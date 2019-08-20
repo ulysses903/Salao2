@@ -23,8 +23,11 @@ namespace Salao.Models
         public double Price { get; set; }
 
         public Funcionario Funcionario { get; set; }
+        public int FuncionarioId { get; set; }
         public Cliente Cliente { get; set; }
+        public int ClienteId { get; set; }
         public Procedimentos Procedimentos { get; set; }
+        public int ProcedimentosId { get; set; }
 
         public Servico()
         {

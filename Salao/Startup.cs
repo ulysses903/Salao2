@@ -42,6 +42,7 @@ namespace Salao
                         builder.MigrationsAssembly("Salao")));
 
             services.AddScoped<ServicoService>();
+            services.AddScoped<FuncionariosService>();
 
         }
 

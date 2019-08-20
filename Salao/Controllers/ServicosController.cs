@@ -5,17 +5,19 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Salao.Models;
 using Salao.Services;
-
+using Salao.Models.ViewModels;
 namespace Salao.Controllers
 {
     public class ServicosController : Controller
     {
 
         private readonly ServicoService _servicoService;
+        private readonly FuncionariosService _funcionariosService;
 
-        public ServicosController(ServicoService servicoService)
+        public ServicosController(ServicoService servicoService, FuncionariosService funcionariosService)
         {
             _servicoService = servicoService;
+            _funcionariosService = funcionariosService;
         }
 
         public IActionResult Index()
@@ -26,7 +28,9 @@ namespace Salao.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            var funcionarios = _funcionariosService.FindAll();
+            var viewModel = new FuncionariosFormViewModel { Funcionarios = funcionarios };
+            return View(viewModel);
         }
 
         [HttpPost]
