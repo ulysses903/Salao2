@@ -165,12 +165,14 @@ namespace Salao.Controllers
             return View(result);
         }
 
-        public IActionResult BuscaFuncionario()
+        public async Task<IActionResult> BuscaFuncionario()
         {
-            return View();
+            var funcionarios = await _funcionariosService.FindAllAsync();
+            var viewModel = new ServicosFormViewModel { Funcionarios = funcionarios };
+            return View(viewModel);
         }
 
-        public IActionResult FuncSearch()
+        public  IActionResult FuncSearch()
         {
             return View();
         }
