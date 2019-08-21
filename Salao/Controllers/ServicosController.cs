@@ -45,7 +45,15 @@ namespace Salao.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(Servico servico)
-        {
+        {   
+            if(!ModelState.IsValid)
+            {
+                var funcionarios = _funcionariosService.FindAll();
+                var clientes = _clienteService.FindAll();
+                var procedimentos = _procedimentosService.FindAll();
+                var viewModel = new ServicosFormViewModel { Servico = servico, Funcionarios = funcionarios, Clientes = clientes, Procedimentos = procedimentos };
+                return View(viewModel);
+            }
             _servicoService.Insert(servico);
             return RedirectToAction(nameof(Index));
             
@@ -77,7 +85,15 @@ namespace Salao.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, Servico servico)
         {
-            if(id != servico.Id)
+            if (!ModelState.IsValid)
+            {
+                var funcionarios = _funcionariosService.FindAll();
+                var clientes = _clienteService.FindAll();
+                var procedimentos = _procedimentosService.FindAll();
+                var viewModel = new ServicosFormViewModel { Servico = servico, Funcionarios = funcionarios, Clientes = clientes, Procedimentos = procedimentos };
+                return View(viewModel);
+            }
+            if (id != servico.Id)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id mismatch" });
             }
