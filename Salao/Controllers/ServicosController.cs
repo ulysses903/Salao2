@@ -154,6 +154,16 @@ namespace Salao.Controllers
             return View(obj);
         }
 
+        public IActionResult Busca()
+        {
+            return View();
+        }
+
+        public IActionResult SimpleSearch()
+        {
+            return View();
+        }
+
         public IActionResult Error(string message)
         {
             var viewModel = new ErrorViewModel
