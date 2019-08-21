@@ -12,6 +12,8 @@ namespace Salao.Models
 
         [Required(ErrorMessage = "{0} required")]
         [Display(Name = "Dia e Horario")]
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy | HH:mm}")]
         public DateTime Date { get; set; }
 
         [Required(ErrorMessage = "{0} required")]
@@ -21,10 +23,13 @@ namespace Salao.Models
         public double Price { get; set; }
 
         public Funcionario Funcionario { get; set; }
+        [Display(Name = "Funcionario")]
         public int FuncionarioId { get; set; }
         public Cliente Cliente { get; set; }
+        [Display(Name = "Cliente")]
         public int ClienteId { get; set; }
         public Procedimentos Procedimentos { get; set; }
+        [Display(Name = "Procedimentos")]
         public int ProcedimentosId { get; set; }
 
         public Servico()
