@@ -159,9 +159,10 @@ namespace Salao.Controllers
             return View();
         }
 
-        public IActionResult SimpleSearch()
+        public async Task<IActionResult> SimpleSearch(DateTime? minDate, DateTime? maxDate)
         {
-            return View();
+            var result = await  _servicoService.FindByDateAsync(minDate, maxDate);
+            return View(result);
         }
 
         public IActionResult Error(string message)

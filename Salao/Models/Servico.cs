@@ -45,5 +45,9 @@ namespace Salao.Models
             Cliente = cliente;
             Procedimentos = procedimentos;
         }
+        /*public double TotalSales(DateTime initial, DateTime final)
+        {
+            return Servico.Where(sr => sr.Date >= initial && sr.Date <= final).Sum(sr => sr.Amount);
+        }*/
     }
 }

@@ -58,5 +58,20 @@ namespace Salao.Services
             }
         }
 
+        public async Task<List<Servico>> FindByDateAsync(DateTime? minDate, DateTime? maxDate)
+        {
+            var result = from obj in _context.Servico select obj;
+            if (minDate.HasValue)
+            {
+                result = result.Where(x => x.Date >= minDate.Value);
+            }
+            if (maxDate.HasValue)
+            {
+                result = result.Where(x => x.Date <= maxDate.Value);
+            }
+            return await result.Include(x => x.Cliente).Include(x => x.Funcionario).Include(x => x.Procedimentos).OrderByDescending(x => x.Date).ToListAsync();
+
+        }
+
     }
 }
