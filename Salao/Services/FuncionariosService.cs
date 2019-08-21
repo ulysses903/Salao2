@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Salao.Services
 {
@@ -15,9 +16,9 @@ namespace Salao.Services
             _context = context;
         }
 
-        public List<Funcionario> FindAll()
+        public async Task<List<Funcionario>> FindAllAsync()
         {
-            return _context.Funcionario.OrderBy(x => x.Name).ToList();
+            return await _context.Funcionario.OrderBy(x => x.Name).ToListAsync();
         }
 
     }

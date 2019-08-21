@@ -27,55 +27,55 @@ namespace Salao.Controllers
             _procedimentosService = procedimentosService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var list = _servicoService.FindAll();
+            var list = await _servicoService.FindAllAsync();
             return View(list);
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            var funcionarios = _funcionariosService.FindAll();
-            var clientes = _clienteService.FindAll();
-            var procedimentos = _procedimentosService.FindAll();
+            var funcionarios = await _funcionariosService.FindAllAsync();
+            var clientes = await _clienteService.FindAllAsync();
+            var procedimentos = await _procedimentosService.FindAllAsync();
             var viewModel = new ServicosFormViewModel { Funcionarios = funcionarios, Clientes = clientes, Procedimentos = procedimentos };
             return View(viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Servico servico)
+        public async Task<IActionResult> Create(Servico servico)
         {   
             if(!ModelState.IsValid)
             {
-                var funcionarios = _funcionariosService.FindAll();
-                var clientes = _clienteService.FindAll();
-                var procedimentos = _procedimentosService.FindAll();
+                var funcionarios = await _funcionariosService.FindAllAsync();
+                var clientes = await _clienteService.FindAllAsync();
+                var procedimentos = await _procedimentosService.FindAllAsync();
                 var viewModel = new ServicosFormViewModel { Servico = servico, Funcionarios = funcionarios, Clientes = clientes, Procedimentos = procedimentos };
                 return View(viewModel);
             }
-            _servicoService.Insert(servico);
+            await _servicoService.InsertAsync(servico);
             return RedirectToAction(nameof(Index));
             
         }
 
-        public IActionResult Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id not provided" });
             }
 
-            var obj = _servicoService.FindById(id.Value);
+            var obj = await _servicoService.FindByIdAsync(id.Value);
 
             if (obj == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id not found" });
             }
 
-            List<Funcionario> funcionarios = _funcionariosService.FindAll();
-            List<Cliente> clientes = _clienteService.FindAll();
-            List<Procedimentos> procedimentos = _procedimentosService.FindAll();
+            List<Funcionario> funcionarios = await _funcionariosService.FindAllAsync();
+            List<Cliente> clientes = await _clienteService.FindAllAsync();
+            List<Procedimentos> procedimentos = await _procedimentosService.FindAllAsync();
             ServicosFormViewModel viewModel = new ServicosFormViewModel { Servico = obj, Funcionarios = funcionarios, Clientes = clientes, Procedimentos = procedimentos };
 
             return View(viewModel);
@@ -83,13 +83,13 @@ namespace Salao.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, Servico servico)
+        public async Task<IActionResult> Edit(int id, Servico servico)
         {
             if (!ModelState.IsValid)
             {
-                var funcionarios = _funcionariosService.FindAll();
-                var clientes = _clienteService.FindAll();
-                var procedimentos = _procedimentosService.FindAll();
+                var funcionarios = await _funcionariosService.FindAllAsync();
+                var clientes = await _clienteService.FindAllAsync();
+                var procedimentos = await _procedimentosService.FindAllAsync();
                 var viewModel = new ServicosFormViewModel { Servico = servico, Funcionarios = funcionarios, Clientes = clientes, Procedimentos = procedimentos };
                 return View(viewModel);
             }
@@ -99,7 +99,7 @@ namespace Salao.Controllers
             }
             try
             {
-                _servicoService.Update(servico);
+                await _servicoService.UpdateAsync(servico);
                 return RedirectToAction(nameof(Index));
             }
             catch (NotFoundException e)
@@ -112,14 +112,14 @@ namespace Salao.Controllers
             }
         }
 
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id not provided" });
             }
 
-            var obj = _servicoService.FindById(id.Value);
+            var obj = await _servicoService.FindByIdAsync(id.Value);
 
             if (obj == null)
             {
@@ -131,20 +131,20 @@ namespace Salao.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            _servicoService.Remove(id);
+            await _servicoService.RemoveAsync(id);
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult Details(int? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if(id == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id not provided" });
             }
 
-            var obj = _servicoService.FindById(id.Value);
+            var obj = await _servicoService.FindByIdAsync(id.Value);
 
             if(obj == null)
             {
