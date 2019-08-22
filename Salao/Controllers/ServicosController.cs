@@ -172,9 +172,10 @@ namespace Salao.Controllers
             return View(viewModel);
         }
 
-        public  IActionResult FuncSearch()
+        public async Task<IActionResult> FuncSearch(DateTime? minDate, DateTime? maxDate, int funcionarioId)
         {
-            return View();
+            var result = await _servicoService.FindByDateAndByFuncionarioAsync(minDate, maxDate,funcionarioId);
+            return View(result);
         }
 
         public IActionResult Error(string message)

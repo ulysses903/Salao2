@@ -19,7 +19,12 @@ namespace Salao.Services
 
         public async Task<List<Servico>> FindAllAsync()
         {
-            return await _context.Servico.Include(obj => obj.Funcionario).Include(obj => obj.Cliente).Include(obj => obj.Procedimentos).ToListAsync();
+            return await _context
+                .Servico
+                .Include(obj => obj.Funcionario)
+                .Include(obj => obj.Cliente)
+                .Include(obj => obj.Procedimentos)
+                .ToListAsync();
         }
 
         public async Task InsertAsync(Servico obj)
@@ -30,7 +35,12 @@ namespace Salao.Services
 
         public async Task<Servico> FindByIdAsync(int id)
         {
-            return await _context.Servico.Include(obj => obj.Funcionario).Include(obj => obj.Cliente).Include(obj => obj.Procedimentos).FirstOrDefaultAsync(obj => obj.Id == id);
+            return await _context
+                .Servico
+                .Include(obj => obj.Funcionario)
+                .Include(obj => obj.Cliente)
+                .Include(obj => obj.Procedimentos)
+                .FirstOrDefaultAsync(obj => obj.Id == id);
         }
 
         public async Task RemoveAsync(int id)
@@ -69,8 +79,31 @@ namespace Salao.Services
             {
                 result = result.Where(x => x.Date <= maxDate.Value);
             }
-            return await result.Include(x => x.Cliente).Include(x => x.Funcionario).Include(x => x.Procedimentos).OrderByDescending(x => x.Date).ToListAsync();
+            return await result
+                .Include(x => x.Cliente)
+                .Include(x => x.Funcionario)
+                .Include(x => x.Procedimentos)
+                .OrderByDescending(x => x.Date)
+                .ToListAsync();
+        }
 
+        public async Task<List<Servico>> FindByDateAndByFuncionarioAsync(DateTime? minDate, DateTime? maxDate, int funcionarioId)
+        {
+            var result = from obj in _context.Servico select obj;
+            if (minDate.HasValue)
+            {
+                result = result.Where(x => x.Date >= minDate.Value);
+            }
+            if (maxDate.HasValue)
+            {
+                result = result.Where(x => x.Date <= maxDate.Value);
+            }
+            return await result
+                .Include(x => x.Cliente)
+                .Include(x => x.Funcionario)
+                .Include(x => x.Procedimentos)
+                .OrderByDescending(x => x.Date)
+                .ToListAsync();
         }
 
     }
