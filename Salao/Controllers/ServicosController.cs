@@ -161,21 +161,40 @@ namespace Salao.Controllers
 
         public async Task<IActionResult> SimpleSearch(DateTime? minDate, DateTime? maxDate)
         {
+            if (!minDate.HasValue)
+            {
+                minDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            }
+            if (!maxDate.HasValue)
+            {
+                maxDate = DateTime.Now;
+            }
+
+            ViewData["minDate"] = minDate.Value.ToString("yyyy-MM-dd");
+            ViewData["maxDate"] = maxDate.Value.ToString("yyyy-MM-dd");
             var result = await  _servicoService.FindByDateAsync(minDate, maxDate);
             return View(result);
         }
 
-        public async Task<IActionResult> BuscaFuncionario()
+        public IActionResult BuscaFuncionario()
         {
-            var funcionarios = await _funcionariosService.FindAllAsync();
-            var viewModel = new ServicosFormViewModel { Funcionarios = funcionarios };
-            return View(viewModel);
+            return View();
         }
 
-        public async Task<IActionResult> FuncSearch(DateTime? minDate, DateTime? maxDate, int funcionarioId)
+        public async Task<IActionResult> FuncSearch(DateTime? minDate, DateTime? maxDate)
         {
-            funcionarioId = 1;
-            var result = await _servicoService.FindByDateAndByFuncionarioAsync(minDate, maxDate,funcionarioId);
+            if (!minDate.HasValue)
+            {
+                minDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            }
+            if (!maxDate.HasValue)
+            {
+                maxDate = DateTime.Now;
+            }
+            
+            ViewData["minDate"] = minDate.Value.ToString("yyyy-MM-dd");
+            ViewData["maxDate"] = maxDate.Value.ToString("yyyy-MM-dd");
+            var result = await _servicoService.FindByDate2Async(minDate, maxDate);
             return View(result);
         }
 

@@ -71,6 +71,7 @@ namespace Salao.Services
         public async Task<List<Servico>> FindByDateAsync(DateTime? minDate, DateTime? maxDate)
         {
             var result = from obj in _context.Servico select obj;
+            maxDate = maxDate.Value.AddDays(1.0);
             if (minDate.HasValue)
             {
                 result = result.Where(x => x.Date >= minDate.Value);
@@ -90,6 +91,7 @@ namespace Salao.Services
         public async Task<List<Servico>> FindByDateAndByFuncionarioAsync(DateTime? minDate, DateTime? maxDate, int funcionarioId)
         {
             var result = from obj in _context.Servico select obj;
+            maxDate = maxDate.Value.AddDays(1.0);
             if (minDate.HasValue)
             {
                 result = result.Where(x => x.Date >= minDate.Value && x.FuncionarioId == funcionarioId);
@@ -103,6 +105,27 @@ namespace Salao.Services
                 .Include(x => x.Funcionario)
                 .Include(x => x.Procedimentos)
                 .OrderByDescending(x => x.Date)
+                .ToListAsync();
+        }
+
+        public async Task<List<IGrouping<Funcionario, Servico>>> FindByDate2Async(DateTime? minDate, DateTime? maxDate)
+        {
+            var result = from obj in _context.Servico select obj;
+            maxDate = maxDate.Value.AddDays(1.0);
+            if (minDate.HasValue)
+            {
+                result = result.Where(x => x.Date >= minDate.Value);
+            }
+            if (maxDate.HasValue)
+            {
+                result = result.Where(x => x.Date <= maxDate.Value);
+            }
+            return await result
+                .Include(x => x.Cliente)
+                .Include(x => x.Funcionario)
+                .Include(x => x.Procedimentos)
+                .OrderBy(x => x.Date)
+                .GroupBy(x => x.Funcionario)
                 .ToListAsync();
         }
 

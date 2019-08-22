@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace Salao.Models
 {
@@ -21,6 +23,7 @@ namespace Salao.Models
         [Required(ErrorMessage = "{0} required")]
         [Display(Name = "Número de Telefone")]
         public string PhoneNumber { get; set; }
+        public ICollection<Servico> Sales { get; set; } = new List<Servico>();
 
         public Funcionario()
         {
@@ -32,6 +35,11 @@ namespace Salao.Models
             Name = name;
             BirthDate = birthDate;
             PhoneNumber = phoneNumber;
+        }
+        public double TotalSales(DateTime initial, DateTime final)
+        {
+            final = final.AddDays(1.0);
+            return Sales.Where(sr => sr.Date >= initial && sr.Date <= final).Sum(sr => sr.Price);
         }
 
     }

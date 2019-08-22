@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace Salao.Models
 {
@@ -42,9 +44,5 @@ namespace Salao.Models
             Cliente = cliente;
             Procedimentos = procedimentos;
         }
-        /*public double TotalSales(DateTime initial, DateTime final)
-        {
-            return Servico.Where(sr => sr.Date >= initial && sr.Date <= final).Sum(sr => sr.Amount);
-        }*/
     }
 }
