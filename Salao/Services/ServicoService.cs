@@ -92,11 +92,11 @@ namespace Salao.Services
             var result = from obj in _context.Servico select obj;
             if (minDate.HasValue)
             {
-                result = result.Where(x => x.Date >= minDate.Value);
+                result = result.Where(x => x.Date >= minDate.Value && x.FuncionarioId == funcionarioId);
             }
             if (maxDate.HasValue)
             {
-                result = result.Where(x => x.Date <= maxDate.Value);
+                result = result.Where(x => x.Date <= maxDate.Value && x.FuncionarioId == funcionarioId);
             }
             return await result
                 .Include(x => x.Cliente)

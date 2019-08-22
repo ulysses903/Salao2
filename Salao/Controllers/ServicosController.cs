@@ -174,6 +174,7 @@ namespace Salao.Controllers
 
         public async Task<IActionResult> FuncSearch(DateTime? minDate, DateTime? maxDate, int funcionarioId)
         {
+            funcionarioId = 1;
             var result = await _servicoService.FindByDateAndByFuncionarioAsync(minDate, maxDate,funcionarioId);
             return View(result);
         }
