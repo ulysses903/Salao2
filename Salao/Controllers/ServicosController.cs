@@ -29,8 +29,11 @@ namespace Salao.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var list = await _servicoService.FindAllAsync();
-            return View(list);
+            DateTime Date = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            ViewData["minDate"] = Date.ToString("yyyy-MM-dd");
+            ViewData["maxDate"] = Date.ToString("yyyy-MM-dd");
+            var result = await _servicoService.FindByDate2Async(Date, Date);
+            return View(result);
         }
 
         public async Task<IActionResult> Create()
