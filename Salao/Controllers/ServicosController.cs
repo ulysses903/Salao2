@@ -46,6 +46,13 @@ namespace Salao.Controllers
             return View(result);
         }
 
+        public async Task<IActionResult> AniversariantesDoMes()
+        {
+            DateTime Date = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            var result = await _clienteService.FindByBirthDate(Date);
+            return View(result);
+        }
+
         public async Task<IActionResult> Create()
         {
             var funcionarios = await _funcionariosService.FindAllAsync();

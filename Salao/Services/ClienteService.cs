@@ -20,5 +20,17 @@ namespace Salao.Services
         {
             return await _context.Cliente.OrderBy(x => x.Name).ToListAsync();
         }
+
+        public async Task<List<Cliente>> FindByBirthDate(DateTime? Date)
+        {
+            var result = from obj in _context.Cliente select obj;
+            if (Date.HasValue)
+            {
+                result = result.Where(x => x.BirthDate.Month == Date.Value.Month);
+            }
+            return await result
+                .OrderByDescending(x => x.BirthDate)
+                .ToListAsync();
+        }
     }
 }
