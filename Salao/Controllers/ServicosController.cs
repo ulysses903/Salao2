@@ -36,6 +36,16 @@ namespace Salao.Controllers
             return View(result);
         }
 
+        public async Task<IActionResult> Amanha()
+        {
+            DateTime Date = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            Date = Date.AddDays(1.0);
+            ViewData["minDate"] = Date.ToString("yyyy-MM-dd");
+            ViewData["maxDate"] = Date.ToString("yyyy-MM-dd");
+            var result = await _servicoService.FindByDate2Async(Date, Date);
+            return View(result);
+        }
+
         public async Task<IActionResult> Create()
         {
             var funcionarios = await _funcionariosService.FindAllAsync();

@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<IGrouping<Funcionario, Servico>>
 
 @{
-    ViewData["Title"] = "Serviços";
+    ViewData["Title"] = "Horarios de amanhã";
     DateTime minDate = DateTime.Parse(ViewData["minDate"] as string);
     DateTime maxDate = DateTime.Parse(ViewData["maxDate"] as string);
 }
@@ -9,10 +9,7 @@
 <h1>@ViewData["Title"]</h1>
 
 <p>
-    <a asp-action="Create">Agendamento</a> |
-    <a asp-action="Amanha">Horarios de amanhã</a> | 
-    <a asp-action="Busca">Busca</a> |
-    <a asp-action="BuscaFuncionario">Busca por funcionario</a>
+    <a asp-action="Index">Voltar</a>
 </p>
 
 @foreach (var departamentGroup in Model)
